@@ -17,38 +17,17 @@ dotfiles/
 
 ## Install
 
-### 1. Install mise
-
-Follow the official instructions: https://mise.jdx.dev/getting-started.html
-
-### 2. Install ghq
-
 ```bash
-mise install ghq
+curl -fsSL https://raw.githubusercontent.com/miyakoshi-3854/dotfiles/main/install.sh | bash && source ~/.zshrc
 ```
 
-### 3. Clone this repo
+This single command will:
 
-```bash
-ghq get miyakoshi-3854/dotfiles
-```
-
-### 4. Run install script
-
-Symlinks config files to their expected locations under `$HOME`.
-
-```bash
-cd $(ghq root)/github.com/miyakoshi-3854/dotfiles
-./install.sh
-```
-
-### 5. Install tools
-
-```bash
-mise install
-```
-
-Installs the following tools:
+1. Install [mise](https://mise.jdx.dev) (if not already installed)
+2. Install [ghq](https://github.com/x-motemen/ghq) and clone this repo
+3. Symlink config files to `$HOME`
+4. Configure `git credential.helper` for the current OS (WSL2 / macOS)
+5. Install all tools via `mise install`
 
 | Tool | Description |
 |------|-------------|

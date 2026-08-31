@@ -2,21 +2,39 @@
 
 set -e
 
-DOTFILE_DIR="$(cd "$(dirname "$0")" && pwd)"
+# ── Install mise ──────────────────────────────────────────────────────────────
+if ! command -v mise &>/dev/null; then
+  echo "Installing mise..."
+  curl https://mise.run | sh
+  export PATH="$HOME/.local/bin:$PATH"
+else
+  echo "mise: already installed"
+fi
 
+# ── Clone dotfiles ────────────────────────────────────────────────────────────
+DOTFILE_DIR="$HOME/ghq/github.com/miyakoshi-3854/dotfiles"
+
+if [ ! -d "$DOTFILE_DIR" ]; then
+  echo "Cloning dotfiles..."
+  mkdir -p "$(dirname "$DOTFILE_DIR")"
+  git clone "https://github.com/miyakoshi-3854/dotfiles.git" "$DOTFILE_DIR"
+else
+  echo "dotfiles: already cloned"
+fi
+
+cd "$DOTFILE_DIR"
+
+# ── Symlinks ──────────────────────────────────────────────────────────────────
 link() {
   local src="$DOTFILE_DIR/$1"
   local dest="$HOME/$1"
-
   mkdir -p "$(dirname "$dest")"
-
   if [ -e "$dest" ] && [ ! -L "$dest" ]; then
-    echo "backup: $dest -> $dest.bak"
     mv "$dest" "$dest.bak"
+    echo "backup: $dest.bak"
   fi
-
   ln -sfn "$src" "$dest"
-  echo "linked: $dest -> $src"
+  echo "linked: $dest"
 }
 
 link .zshrc
@@ -25,5 +43,9 @@ link .config/gh/config.yml
 link .config/mise/config.toml
 link .config/gwq/config.toml
 
+# ── mise install ──────────────────────────────────────────────────────────────
+echo "Running mise install..."
+mise install
+
 echo ""
-echo "install.sh done. Run 'mise install' to install tools."
+echo "Done!"
