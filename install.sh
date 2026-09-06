@@ -44,6 +44,22 @@ link .config/gh/config.yml
 link .config/mise/config.toml
 link .config/gwq/config.toml
 
+# ── Git identity ──────────────────────────────────────────────────────────────
+GIT_LOCAL_CONFIG="$HOME/.config/git/config.local"
+if [ ! -e "$GIT_LOCAL_CONFIG" ]; then
+  echo ""
+  read -rp "Git user.name: " git_user_name
+  read -rp "Git user.email: " git_user_email
+  cat >"$GIT_LOCAL_CONFIG" <<EOF
+[user]
+    name = $git_user_name
+    email = $git_user_email
+EOF
+  echo "created: $GIT_LOCAL_CONFIG"
+else
+  echo "Git identity: already configured"
+fi
+
 # ── mise install ──────────────────────────────────────────────────────────────
 echo "Running mise install..."
 mise install

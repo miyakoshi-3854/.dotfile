@@ -26,7 +26,8 @@ This single command will:
 1. Install [mise](https://mise.jdx.dev) (if not already installed)
 2. Install [ghq](https://github.com/x-motemen/ghq) and clone this repo
 3. Symlink config files to `$HOME`
-4. Install all tools via `mise install`
+4. Prompt for your Git `user.name` / `user.email` and save them to `~/.config/git/config.local` (untracked, included from `.config/git/config`)
+5. Install all tools via `mise install`
 
 | Tool | Description |
 |------|-------------|
