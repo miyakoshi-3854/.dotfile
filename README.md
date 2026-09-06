@@ -26,8 +26,7 @@ This single command will:
 1. Install [mise](https://mise.jdx.dev) (if not already installed)
 2. Install [ghq](https://github.com/x-motemen/ghq) and clone this repo
 3. Symlink config files to `$HOME`
-4. Configure `git credential.helper` for the current OS (WSL2 / macOS)
-5. Install all tools via `mise install`
+4. Install all tools via `mise install`
 
 | Tool | Description |
 |------|-------------|
