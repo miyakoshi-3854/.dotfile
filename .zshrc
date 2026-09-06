@@ -9,9 +9,14 @@ eval "$(mise completion zsh)"
 source <(gwq completion zsh)
 source <(fzf --zsh)
 
+# pick a repo from ghq list via fzf
+function _select_repo() {
+  ghq list | fzf --query="$1"
+}
+
 # get repo list
 function ghq-fzf() {
-  local repo=$(ghq list | fzf --query="$1")
+  local repo=$(_select_repo "$1")
   if [ -n "$repo" ]; then
     cd "$(ghq root)/$repo"
   fi
@@ -20,22 +25,25 @@ alias r=ghq-fzf
 
 # create branch
 function gwq-fzf() {
-  local repo=$(ghq list | fzf --query="$1")
+  local repo=$(_select_repo "$1")
   if [ -z "$repo" ]; then return; fi
 
   local repo_path=$(ghq root)/$repo
   cd "$repo_path"
 
   echo -n "New branch name: "
-  read branch
+  read -r branch
   if [ -z "$branch" ]; then
-    echo "キャンセルしました"
+    echo "Cancelled"
     return
   fi
 
-  gwq add -b "$branch" -s
+  if ! gwq add -b "$branch" -s; then
+    echo "Failed to create branch"
+    return
+  fi
 
-  # 元のworktreeから.envをすべてコピー
+  # Copy all .env files from the original worktree
   local new_path="$(ghq root)/${repo}=${branch}"
   local copied=0
   while IFS= read -r env_file; do
@@ -46,7 +54,7 @@ function gwq-fzf() {
     copied=$((copied + 1))
   done < <(find "${repo_path}" -name ".env" -not -path "*/.git/*")
   if [ "$copied" -gt 0 ]; then
-    echo ".env を ${copied} 件コピーしました"
+    echo "Copied ${copied} .env file(s)"
   fi
 }
 alias wc=gwq-fzf
