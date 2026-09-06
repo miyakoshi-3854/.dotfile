@@ -10,6 +10,6 @@ _.path = ["~/.local/bin"]
 
 [settings]
 trusted_config_paths = [
-  "~/ghq/github.com/25MPOOL",
-  "~/ghq/github.com/miyakoshi-3854"
+  "~/ghq/github.com/miyakoshi-3854",
+  "~/ghq/github.com/42ymiyakos"
 ]
