@@ -1,6 +1,5 @@
-[user]
-    name = miyakoshi-3854
-    email = 208133564+miyakoshi-3854@users.noreply.github.com
+[include]
+    path = ~/.config/git/config.local
 [pull]
     ff = only
     rebase = false
