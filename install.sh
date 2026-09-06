@@ -30,8 +30,9 @@ link() {
   local dest="$HOME/$1"
   mkdir -p "$(dirname "$dest")"
   if [ -e "$dest" ] && [ ! -L "$dest" ]; then
-    mv "$dest" "$dest.bak"
-    echo "backup: $dest.bak"
+    local backup="$dest.bak.$(date +%Y%m%d%H%M%S)"
+    mv "$dest" "$backup"
+    echo "backup: $backup"
   fi
   ln -sfn "$src" "$dest"
   echo "linked: $dest"
