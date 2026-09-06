@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 # ── Install mise ──────────────────────────────────────────────────────────────
 if ! command -v mise &>/dev/null; then
