@@ -36,3 +36,7 @@ This single command will:
 | [ghq](https://github.com/x-motemen/ghq) | Git repository manager |
 | [gwq](https://github.com/d-kuro/gwq) | Git worktree manager |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder |
+
+## Notes
+
+- `wc` (`gwq-fzf`) creates a new worktree and automatically copies all `.env` files from the original worktree into it. Be aware that this includes any secrets stored in those files.

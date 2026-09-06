@@ -5,7 +5,7 @@ set -euo pipefail
 # ── Install mise ──────────────────────────────────────────────────────────────
 if ! command -v mise &>/dev/null; then
   echo "Installing mise..."
-  curl https://mise.run | sh
+  curl -fsSL https://mise.run | sh
   export PATH="$HOME/.local/bin:$PATH"
 else
   echo "mise: already installed"
